@@ -1,6 +1,5 @@
 import {View, Text, Button} from 'react-native';
 import React from 'react';
-import PokemonList from '../components/PokeListDetails/pokeListDetails';
 
 const SettingsScreen = props => {
   const {navigation} = props;
@@ -11,7 +10,6 @@ const SettingsScreen = props => {
   return (
     <View>
       <Text>SettingsScreen</Text>
-      <PokemonList/>
       <Button onPress={() => goToHome('Home')} title="Ir a Home" />
     </View>
   );

@@ -23,7 +23,7 @@ const usePokemonDetails = (props: any) => {
 
         // Simulamos un retardo de 2 segundos
         setTimeout(async () => {
-          const data = await fetchPokemonDetails(params.item);
+          const data = await fetchPokemonDetails(params.id);
           const newPokemonData = {
             id: data.id,
             name: data.name,

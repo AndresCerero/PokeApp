@@ -17,10 +17,6 @@ const PokemonList = () => {
 
   const navigation = useNavigation();
 
-  const goToPokemon = item => {
-    navigation.navigate('ScreenPokemon', {item});
-  };
-
   return (
     <View>
       {loading ? (
@@ -38,7 +34,10 @@ const PokemonList = () => {
             data={pokemonData}
             keyExtractor={item => item.name}
             renderItem={({item}) => (
-              <Pressable onPress={() => goToPokemon(item.id)}>
+              <Pressable
+                onPress={() => {
+                  navigation.navigate('ScreenPokemon', {id: item.id});
+                }}>
                 <View style={{backgroundColor: item.typeColor}}>
                   <Text>{item.name}</Text>
                   <Image
