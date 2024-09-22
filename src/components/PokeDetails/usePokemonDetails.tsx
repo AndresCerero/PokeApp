@@ -22,12 +22,12 @@ const usePokemonDetails = (props: any) => {
         setError(null);
 
         // Simulamos un retardo de 2 segundos
-        setTimeout(async () => {
+        // setTimeout(async () => {
           const data = await fetchPokemonDetails(params.id);
           const newPokemonData = {
             id: data.id,
             name: data.name,
-            image: data.sprites.front_default,
+            image: data.sprites.other.home.front_default,
             typeColor: getTypeColor(data.types[0].type.name),
             type: data.types.map(typeInfo => ({
               name: typeInfo.type.name,
@@ -38,7 +38,7 @@ const usePokemonDetails = (props: any) => {
 
           setPokemonData(newPokemonData);
           setLoading(false);
-        }, 2000); // Ajusté el tiempo de espera a 2 segundos
+        // }, 1000); // Ajusté el tiempo de espera a 2 segundos
       } catch (err) {
         setError('Failed to fetch Pokémon');
         setLoading(false);

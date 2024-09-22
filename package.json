@@ -1,5 +1,5 @@
 {
-  "name": "AwesomeProject",
+  "name": "Pokedex",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -16,6 +16,7 @@
     "@react-navigation/native-stack": "^6.11.0",
     "react": "18.3.1",
     "react-native": "0.75.3",
+    "react-native-bootsplash": "^6.1.3",
     "react-native-gesture-handler": "^2.19.0",
     "react-native-paper": "^5.12.5",
     "react-native-reanimated": "^3.15.2",

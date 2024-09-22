@@ -14,7 +14,6 @@ export const usePokemon = () => {
   const [loadingMore, setLoadingMore] = useState<boolean>(false); // Para detectar si estamos cargando más Pokémon
 
   useEffect(() => {
-    
     const fetchData = async (isLoadMore = false) => {
       try {
         if (isLoadMore) {
@@ -30,7 +29,7 @@ export const usePokemon = () => {
           const newPokemonData = data.map(pokemon => ({
             id: pokemon.id,
             name: pokemon.name,
-            image: pokemon.sprites.front_default,
+            image: pokemon.sprites.other.home.front_default,
             typeColor: getTypeColor(pokemon.types[0].type.name),
           }));
 
