@@ -8,27 +8,32 @@ import {
   StyleSheet,
   Pressable,
 } from 'react-native';
-import {usePokemon} from './usePokeListDetails';
 import {useNavigation} from '@react-navigation/native';
+import usePokemonListFavorite from './usePokeListFavorite';
+import Logout from '../Logout/Logout';
 
-
-const PokemonList = () => {
-  const {pokemonData, loading, error, loadMorePokemon, loadingMore} =
-    usePokemon();
-
+export default function PokeListFavorite() {
+  const {pokemonData, loading, error, auth, items} = usePokemonListFavorite();
   const navigation = useNavigation();
 
-  return (
+  return !auth ? (
+    <Logout />
+  ) : (
     <View>
-      
       {loading ? (
         <View>
-          <Text>Loading...</Text>
+          <Text>loading</Text>
           <ActivityIndicator size="large" color="#0000ff" />
         </View>
       ) : error ? (
         <View>
           <Text>{error}</Text>
+        </View>
+      ) : items.length === 0 ? ( // Verifica si no hay favoritos
+        <View>
+          <Text>
+            No tienes Pokémon favoritos. Agrega algunos a tus favoritos.
+          </Text>
         </View>
       ) : (
         <View>
@@ -59,23 +64,13 @@ const PokemonList = () => {
             numColumns={2}
             columnWrapperStyle={styles.columnWrapper}
             contentContainerStyle={styles.containerStyle}
-            onEndReached={loadMorePokemon}
             onEndReachedThreshold={0.5}
-            ListFooterComponent={
-              loadingMore ? ( // Usar estado de prueba para mostrar el indicador
-                <ActivityIndicator
-                  size="large"
-                  color="#0000ff"
-                  style={styles.spinner}
-                />
-              ) : null
-            }
           />
         </View>
       )}
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   containerStyle: {
@@ -123,5 +118,3 @@ const styles = StyleSheet.create({
     marginBottom: 60,
   },
 });
-
-export default PokemonList;

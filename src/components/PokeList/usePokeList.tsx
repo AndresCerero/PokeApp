@@ -13,12 +13,11 @@ export const usePokemon = () => {
         setLoading(true);
         setError(null);
 
-        // Simulamos un retardo de 2 segundos
         setTimeout(async () => {
           const data = await fetchPokemonData();
           setPokemonData(data);
           setLoading(false);
-        }, 6000);
+        }, 100);
       } catch (err) {
         setError('Failed to fetch Pokémon');
         setLoading(false);

@@ -1,5 +1,5 @@
 import {View} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import PokemonDetails from '../components/PokeDetails/pokemonDetails';
 
 const PokemonDetailsScreen = props => {

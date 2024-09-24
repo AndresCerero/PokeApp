@@ -10,9 +10,10 @@ export const usePokemon = () => {
   const [pokemonData, setPokemonData] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [offset, setOffset] = useState<number>(0); // Para manejar la paginación
-  const [loadingMore, setLoadingMore] = useState<boolean>(false); // Para detectar si estamos cargando más Pokémon
+  const [offset, setOffset] = useState<number>(0);
+  const [loadingMore, setLoadingMore] = useState<boolean>(false);
 
+  // Fetch inicial para paginación
   useEffect(() => {
     const fetchData = async (isLoadMore = false) => {
       try {
@@ -23,9 +24,8 @@ export const usePokemon = () => {
         }
         setError(null);
 
-        // Simulamos un retardo de 2 segundos
         setTimeout(async () => {
-          const data = await fetchPokemonData(10, offset);
+          const data = await fetchPokemonData(20, offset);
           const newPokemonData = data.map(pokemon => ({
             id: pokemon.id,
             name: pokemon.name,
@@ -33,24 +33,39 @@ export const usePokemon = () => {
             typeColor: getTypeColor(pokemon.types[0].type.name),
           }));
 
-          setPokemonData(prevData =>
-            isLoadMore ? [...prevData, ...newPokemonData] : newPokemonData,
-          );
+          setPokemonData(prevData => {
+            if (isLoadMore) {
+              return [...prevData, ...newPokemonData];
+            } else {
+              return newPokemonData;
+            }
+          });
+
           setLoading(false);
           setLoadingMore(false);
-        }, 6000);
+        }, 1000);
       } catch (err) {
         setError('Failed to fetch Pokémon');
         setLoading(false);
         setLoadingMore(false);
       }
     };
+
     fetchData(offset > 0);
   }, [offset]);
 
   const loadMorePokemon = () => {
-    setOffset(prevOffset => prevOffset + 10);
+    if (!loading && !loadingMore) {
+      // Solo cargar más si no hay término de búsqueda
+      setOffset(prevOffset => prevOffset + 20);
+    }
   };
 
-  return {pokemonData, loading, error, loadMorePokemon, loadingMore};
+  return {
+    pokemonData,
+    loading,
+    error,
+    loadMorePokemon,
+    loadingMore,
+  };
 };

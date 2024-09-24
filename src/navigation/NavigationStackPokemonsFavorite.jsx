@@ -1,16 +1,16 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import PokedexScreen from '../screens/PokedexScreen';
 import PokemonDetailsScreen from '../screens/PokemonDetailsScreen';
+import FavoritosScreen from '../screens/FavoritosScreen';
 
 const Stack = createNativeStackNavigator();
 
-const NavigationStackPokemons = () => {
+const NavigationStackPokemonsFavorite = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="HomePokedex"
-        component={PokedexScreen}
+        name="FavoritePokedex"
+        component={FavoritosScreen}
         options={{headerShown: false}}
       />
       <Stack.Screen
@@ -25,4 +25,4 @@ const NavigationStackPokemons = () => {
   );
 };
 
-export default NavigationStackPokemons;
+export default NavigationStackPokemonsFavorite;

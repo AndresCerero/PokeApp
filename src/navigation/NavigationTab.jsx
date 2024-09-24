@@ -1,7 +1,7 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import NavigationStackPokemons from './NavigationStackPokemons';
-import FavoritosScreen from '../screens/FavoritosScreen';
+import NavigationStackPokemonsFavorite from './NavigationStackPokemonsFavorite';
 import PerfilScreen from '../screens/PerfilScreen';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Pokeball from '../Assets/Icons/pokeball';
@@ -16,7 +16,7 @@ const NavigationTab = () => {
       screenOptions={{tabBarShowLabel: false, headerShown: false}}>
       <Tab.Screen
         name="Favoritos"
-        component={FavoritosScreen}
+        component={NavigationStackPokemonsFavorite}
         options={{
           tabBarIcon: ({color, size}) => (
             <Icon name="heart-outline" color={color} size={size} />

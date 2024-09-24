@@ -1,6 +1,9 @@
 import {useState, useEffect} from 'react';
 import {fetchPokemonDetails} from './utils/fetchPokeDetails';
 import {typeColors} from './utils/typeColor';
+import AddPokemon from './AddPokemon/addPokemon';
+import Icon from 'react-native-vector-icons/Ionicons';
+import useAuth from '../../hooks/useAuth';
 
 export const getTypeColor = (type: string): string => {
   return typeColors[type.toLowerCase()] || '#A8A878';
@@ -8,12 +11,29 @@ export const getTypeColor = (type: string): string => {
 
 const usePokemonDetails = (props: any) => {
   const {
+    navigation,
     route: {params},
   } = props;
-
   const [pokemonData, setPokemonData] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const {auth} = useAuth();
+
+  console.log(auth);
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (auth ? <AddPokemon id={pokemonData?.id} /> : null),
+      headerLeft: () => (
+        <Icon
+          name="arrow-back-outline"
+          color="#fff"
+          size={40}
+          onPress={navigation.goBack}
+        />
+      ),
+    });
+  }, [navigation, params, pokemonData]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,9 +41,8 @@ const usePokemonDetails = (props: any) => {
         setLoading(true);
         setError(null);
 
-        // Simulamos un retardo de 2 segundos
-        // setTimeout(async () => {
-          const data = await fetchPokemonDetails(params.id);
+        setTimeout(async () => {
+          const data = await fetchPokemonDetails(params.item.id);
           const newPokemonData = {
             id: data.id,
             name: data.name,
@@ -38,15 +57,15 @@ const usePokemonDetails = (props: any) => {
 
           setPokemonData(newPokemonData);
           setLoading(false);
-        // }, 1000); // Ajusté el tiempo de espera a 2 segundos
+        }, 100);
       } catch (err) {
         setError('Failed to fetch Pokémon');
         setLoading(false);
       }
     };
 
-    fetchData(); // Llamar a la función de obtención de datos
-  }, [params.item]);
+    fetchData();
+  }, [params.item.id]);
 
   return {pokemonData, loading, error};
 };

@@ -11,7 +11,6 @@ const usePokemon = (): UsePokemon => {
     const getPokemons = async () => {
       try {
         const data = await fetchPokemon();
-        console.log('Pokémon data fetched:', data); // Agregas el console.log para ver la data
         setPokemons(data);
       } catch (error) {
         console.error('Error fetching Pokémon data:', error);
