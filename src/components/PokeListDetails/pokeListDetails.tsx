@@ -11,7 +11,6 @@ import {
 import {usePokemon} from './usePokeListDetails';
 import {useNavigation} from '@react-navigation/native';
 
-
 const PokemonList = () => {
   const {pokemonData, loading, error, loadMorePokemon, loadingMore} =
     usePokemon();
@@ -20,7 +19,6 @@ const PokemonList = () => {
 
   return (
     <View>
-      
       {loading ? (
         <View>
           <Text>Loading...</Text>

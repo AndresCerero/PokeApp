@@ -26,6 +26,7 @@ export const usePokemon = () => {
 
         setTimeout(async () => {
           const data = await fetchPokemonData(20, offset);
+          console.log(data);
           const newPokemonData = data.map(pokemon => ({
             id: pokemon.id,
             name: pokemon.name,

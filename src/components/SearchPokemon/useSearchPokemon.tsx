@@ -11,20 +11,16 @@ export default function useSearchPokemon() {
     const fetchResult = await rawResult.json();
     const result = fetchResult.results;
 
-    // Filter Pokémon by name
     const filterResult = result.filter(pokemon => {
       return pokemon.name.toLowerCase().includes(searchTerm.toLowerCase());
     });
 
-    // Update final result
     const updatedResult = [...finalResult, ...filterResult];
 
-    // Stop condition (example: after fetching 1301 Pokémon or 10 results found)
     if (updatedResult.length >= 10) return updatedResult;
 
-    // Recursive call with incremented offset
     if (offset + limit < 1301) {
-      // Limitar la búsqueda a 1301 Pokémon
+
       return await searchByName(
         offset + limit,
         limit,
@@ -33,7 +29,7 @@ export default function useSearchPokemon() {
       );
     }
 
-    return updatedResult; // Devuelve los resultados encontrados
+    return updatedResult;
   };
 
   return {searchByName};

@@ -13,11 +13,11 @@ const Newsletter = ({
   successMessage = 'Registro Exitoso',
   retryButtonLabel = 'Volver',
   email,
+  success,
   emailList = [],
   handleRetry,
   handleSubmit,
   setEmail,
-  success,
 }: NewsletterProps) => {
   return (
     <GestureHandlerRootView>
