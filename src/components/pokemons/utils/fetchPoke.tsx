@@ -30,7 +30,7 @@ const fetchPokemon = async (): Promise<Pokemon[]> => {
           moves: ['Water Gun', 'Tackle', 'Withdraw'],
         },
       ]);
-    }, 100); // Simula una espera de 1 segundo
+    }, 1000);
   });
 };
 

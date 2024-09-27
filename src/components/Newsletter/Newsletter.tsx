@@ -2,7 +2,7 @@
 import {View, Text, Button} from 'react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {TextInput} from 'react-native-gesture-handler';
-import type {NewsletterProps} from './types/index.td';
+import type {NewsletterProps} from './types';
 
 //
 

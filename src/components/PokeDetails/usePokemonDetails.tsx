@@ -19,8 +19,6 @@ const usePokemonDetails = (props: any) => {
   const [error, setError] = useState<string | null>(null);
   const {auth} = useAuth();
 
-  console.log(auth);
-
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (auth ? <AddPokemon id={pokemonData?.id} /> : null),
@@ -57,7 +55,7 @@ const usePokemonDetails = (props: any) => {
 
           setPokemonData(newPokemonData);
           setLoading(false);
-        }, 100);
+        }, 1000);
       } catch (err) {
         setError('Failed to fetch Pokémon');
         setLoading(false);

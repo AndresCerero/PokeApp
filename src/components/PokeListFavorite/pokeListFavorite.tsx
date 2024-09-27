@@ -1,120 +1,76 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  FlatList,
-  ActivityIndicator,
-  Image,
-  StyleSheet,
-  Pressable,
-} from 'react-native';
+import {View, Text, ActivityIndicator, Image, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import usePokemonListFavorite from './usePokeListFavorite';
 import Logout from '../Logout/Logout';
+import PokeCardContainer from '../Pokecard/PokeCard';
+import SearchPokemon from '../SearchPokemon/searchPokemon';
+import Loading from '../Loding/Loading';
 
 export default function PokeListFavorite() {
   const {pokemonData, loading, error, auth, items} = usePokemonListFavorite();
   const navigation = useNavigation();
 
   return !auth ? (
-    <Logout />
+    <View style={styles.containerLogout}>
+      <Logout />
+    </View>
   ) : (
-    <View>
+    <View style={styles.containerFavoritos}>
+      <SearchPokemon />
       {loading ? (
-        <View>
-          <Text>loading</Text>
-          <ActivityIndicator size="large" color="#0000ff" />
-        </View>
+        <Loading />
       ) : error ? (
         <View>
           <Text>{error}</Text>
         </View>
-      ) : items.length === 0 ? ( // Verifica si no hay favoritos
-        <View>
-          <Text>
-            No tienes Pokémon favoritos. Agrega algunos a tus favoritos.
+      ) : items.length === 0 ? (
+        <View style={styles.containerNotFavorite}>
+          <Image
+            source={{
+              uri: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png',
+            }}
+            style={styles.imageNotFavorite}
+          />
+          <Text style={styles.textNotFavorite}>
+            No tienes pokemones favoritos
+          </Text>
+          <Text style={styles.subTextNotFavorite}>
+            Agrega algunos a favoritos
           </Text>
         </View>
       ) : (
-        <View>
-          <FlatList
-            data={pokemonData}
-            keyExtractor={item => item.id}
-            renderItem={({item}) => (
-              <Pressable
-                style={styles.card}
-                onPress={() => {
-                  navigation.navigate('ScreenPokemon', {item});
-                }}>
-                <View
-                  style={[
-                    styles.containerCard,
-                    {backgroundColor: item.typeColor},
-                  ]}>
-                  <View style={styles.cardTextContainer}>
-                    <Text style={styles.cardTextId}>{item.id}</Text>
-                    <Text style={styles.cardTextName}>{item.name}</Text>
-                  </View>
-                  <View style={styles.cardImgContainer}>
-                    <Image source={{uri: item.image}} style={styles.cardImg} />
-                  </View>
-                </View>
-              </Pressable>
-            )}
-            numColumns={2}
-            columnWrapperStyle={styles.columnWrapper}
-            contentContainerStyle={styles.containerStyle}
-            onEndReachedThreshold={0.5}
-          />
-        </View>
+        <PokeCardContainer pokemonData={pokemonData} navigation={navigation} />
       )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  containerStyle: {
-    paddingHorizontal: 10,
-  },
-  columnWrapper: {
-    justifyContent: 'space-between',
-  },
-  card: {
+  containerNotFavorite: {
     flex: 1,
-    overflow: 'hidden',
-    height: 120,
-    margin: 10,
-    borderRadius: 10,
-  },
-  containerCard: {
-    height: '100%',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems: 'center',
   },
-  cardTextContainer: {
-    paddingLeft: 10,
-    width: '60%',
+  imageNotFavorite: {
+    width: 200,
+    height: 200,
   },
-  cardTextId: {
-    color: '#FFFFFF80',
-    fontSize: 30,
+  textNotFavorite: {
+    fontSize: 20,
     fontWeight: 'bold',
+    color: '#202426',
+    paddingBottom:10,
   },
-  cardTextName: {
-    color: '#FFFFFF',
-    textTransform: 'capitalize',
+  subTextNotFavorite: {
+    fontSize: 14,
   },
-  cardImgContainer: {
-    position: 'absolute',
-    right: -40,
+  containerLogout: {
+    flex: 1,
+    justifyContent: 'center',
   },
-  cardImg: {
-    width: 140,
-    height: 140,
-  },
-  spinner: {
-    marginTop: 20,
-    marginBottom: 60,
+  containerFavoritos: {
+    flex: 1,
+    paddingTop: 70,
   },
 });

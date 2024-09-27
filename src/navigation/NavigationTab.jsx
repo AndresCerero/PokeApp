@@ -50,7 +50,6 @@ const style = StyleSheet.create({
     position: 'absolute',
     top: -50,
     borderColor: 'blue',
-    borderWidth: 4,
   },
 });
 

@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {Alert} from 'react-native';
-import type {UseNewsletterSubscribeProps} from './types/index.td';
+import type {UseNewsletterSubscribeProps} from './types';
 
 // Expresión regular para validar el correo electrónico
 const emailRegex = /^[\w.%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
@@ -23,12 +23,6 @@ const useNewsletter = (): UseNewsletterSubscribeProps => {
 
     const response = simulatePostRequest(email);
     if (response.status === 200) {
-      console.log(
-        'Response Status:',
-        response.status,
-        'Message:',
-        response.message,
-      );
       setSuccess(true);
     } else {
       Alert.alert('Error', 'Suscription failed');

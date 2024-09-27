@@ -1,6 +1,6 @@
 import Newsletter from './Newsletter';
 import useNewsletter from './useNewsletter';
-import type {NewsletterSubscribeContainerProps} from './types/index.td';
+import type {NewsletterSubscribeContainerProps} from './types';
 
 const NewsletterContainer = (props: NewsletterSubscribeContainerProps) => {
   const useNewsletterprops = useNewsletter();

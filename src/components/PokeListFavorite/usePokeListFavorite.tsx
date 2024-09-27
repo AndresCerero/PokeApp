@@ -44,14 +44,13 @@ const usePokemonListFavorite = () => {
               typeColor: getTypeColor(data.types[0].type.name),
             };
 
-            console.log('Fetched Pokémon data:', pokemonDetails); // Verifica los datos obtenidos de la API
             newPokemonData.push(pokemonDetails);
           }
 
           setPokemonData(newPokemonData);
 
           setLoading(false);
-        }, 100);
+        }, 1000);
       } catch (err) {
         console.error('Failed to fetch Pokémon:', err);
         setError('Failed to fetch Pokémon');
