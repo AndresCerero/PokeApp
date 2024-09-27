@@ -1,13 +1,20 @@
-import {View} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import React from 'react';
-import PokemonList from '../components/PokeListDetails/pokeListDetails';
+import PokeListDetailsContainer from '../components/PokeListDetails/Index';
+
 
 const PokedexScreen = () => {
   return (
-    <View>
-      <PokemonList />
+    <View style={styles.containerScreenFavorite}>
+      <PokeListDetailsContainer />
     </View>
   );
 };
+const styles = StyleSheet.create({
+  containerScreenFavorite: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+});
 
 export default PokedexScreen;

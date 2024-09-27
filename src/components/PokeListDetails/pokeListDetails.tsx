@@ -1,24 +1,22 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  FlatList,
-  ActivityIndicator,
-  Image,
-  StyleSheet,
-  Pressable,
-} from 'react-native';
-import {usePokemon} from './usePokeListDetails';
+import {View, Text, ActivityIndicator, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import PokeCardContainer from '../Pokecard/Index';
+import SearchPokemon from '../SearchPokemon/searchPokemon';
+import type {PokeListDetailsProps} from './type';
 
-const PokemonList = () => {
-  const {pokemonData, loading, error, loadMorePokemon, loadingMore} =
-    usePokemon();
-
+const PokemonListDetails = ({
+  pokemonData,
+  loading,
+  error,
+  loadMorePokemon,
+  loadingMore,
+}: PokeListDetailsProps) => {
   const navigation = useNavigation();
 
   return (
-    <View>
+    <View style={styles.containerListDetails}>
+      <SearchPokemon />
       {loading ? (
         <View>
           <Text>Loading...</Text>
@@ -29,97 +27,23 @@ const PokemonList = () => {
           <Text>{error}</Text>
         </View>
       ) : (
-        <View>
-          <FlatList
-            data={pokemonData}
-            keyExtractor={item => item.id}
-            renderItem={({item}) => (
-              <Pressable
-                style={styles.card}
-                onPress={() => {
-                  navigation.navigate('ScreenPokemon', {item});
-                }}>
-                <View
-                  style={[
-                    styles.containerCard,
-                    {backgroundColor: item.typeColor},
-                  ]}>
-                  <View style={styles.cardTextContainer}>
-                    <Text style={styles.cardTextId}>{item.id}</Text>
-                    <Text style={styles.cardTextName}>{item.name}</Text>
-                  </View>
-                  <View style={styles.cardImgContainer}>
-                    <Image source={{uri: item.image}} style={styles.cardImg} />
-                  </View>
-                </View>
-              </Pressable>
-            )}
-            numColumns={2}
-            columnWrapperStyle={styles.columnWrapper}
-            contentContainerStyle={styles.containerStyle}
-            onEndReached={loadMorePokemon}
-            onEndReachedThreshold={0.5}
-            ListFooterComponent={
-              loadingMore ? ( // Usar estado de prueba para mostrar el indicador
-                <ActivityIndicator
-                  size="large"
-                  color="#0000ff"
-                  style={styles.spinner}
-                />
-              ) : null
-            }
-          />
-        </View>
+        <PokeCardContainer
+          pokemonData={pokemonData}
+          navigation={navigation}
+          loadMorePokemon={loadMorePokemon}
+          loadingMore={loadingMore}
+        />
       )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  containerStyle: {
-    paddingHorizontal: 10,
-  },
-  columnWrapper: {
-    justifyContent: 'space-between',
-  },
-  card: {
+  containerListDetails: {
     flex: 1,
-    overflow: 'hidden',
-    height: 120,
-    margin: 10,
-    borderRadius: 10,
-  },
-  containerCard: {
-    height: '100%',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-  },
-  cardTextContainer: {
-    paddingLeft: 10,
-    width: '60%',
-  },
-  cardTextId: {
-    color: '#FFFFFF80',
-    fontSize: 30,
-    fontWeight: 'bold',
-  },
-  cardTextName: {
-    color: '#FFFFFF',
-    textTransform: 'capitalize',
-  },
-  cardImgContainer: {
-    position: 'absolute',
-    right: -40,
-  },
-  cardImg: {
-    width: 140,
-    height: 140,
-  },
-  spinner: {
-    marginTop: 20,
-    marginBottom: 60,
+    paddingTop: 60,
+    backgroundColor: '#F8F9FA',
   },
 });
 
-export default PokemonList;
+export default PokemonListDetails;

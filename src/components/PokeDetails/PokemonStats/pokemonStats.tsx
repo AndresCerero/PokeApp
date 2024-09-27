@@ -56,12 +56,18 @@ const PokemonStats = props => {
 
 const styles = StyleSheet.create({
   statsContainer: {
-    borderColor: 'rgba(0, 0, 0, 0.1)',
-    borderWidth: 1,
     borderRadius: 20,
     margin: 20,
     padding: 20,
     height: 250,
+    backgroundColor: 'white',
+    // Sombra en Android
+    elevation: 3,
+    // Sombra en iOS
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
   titleStats: {
     fontWeight: 'bold',

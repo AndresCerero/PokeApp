@@ -1,12 +1,13 @@
 import {useState, useEffect} from 'react';
 import {fetchPokemonData} from './utils/fetchPokeListDetails';
 import {typeColors} from './utils/typeColor';
+import type {UsePokeListDetailsProps} from './type';
 
 export const getTypeColor = (type: string): string => {
   return typeColors[type.toLowerCase()] || '#A8A878';
 };
 
-export const usePokemon = () => {
+export const usePokemonListDetails = (): UsePokeListDetailsProps => {
   const [pokemonData, setPokemonData] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -15,7 +16,7 @@ export const usePokemon = () => {
 
   // Fetch inicial para paginación
   useEffect(() => {
-    const fetchData = async (isLoadMore = false) => {
+    const fetchData = async (isLoadMore: boolean = false) => {
       try {
         if (isLoadMore) {
           setLoadingMore(true);
@@ -26,7 +27,6 @@ export const usePokemon = () => {
 
         setTimeout(async () => {
           const data = await fetchPokemonData(20, offset);
-          console.log(data);
           const newPokemonData = data.map(pokemon => ({
             id: pokemon.id,
             name: pokemon.name,
@@ -41,7 +41,6 @@ export const usePokemon = () => {
               return newPokemonData;
             }
           });
-
           setLoading(false);
           setLoadingMore(false);
         }, 1000);

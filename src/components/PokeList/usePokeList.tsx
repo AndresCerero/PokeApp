@@ -17,7 +17,7 @@ export const usePokemon = () => {
           const data = await fetchPokemonData();
           setPokemonData(data);
           setLoading(false);
-        }, 100);
+        }, 1000);
       } catch (err) {
         setError('Failed to fetch Pokémon');
         setLoading(false);

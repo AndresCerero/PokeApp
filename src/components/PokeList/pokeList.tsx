@@ -5,7 +5,6 @@ import {
   Text,
   FlatList,
   ActivityIndicator,
-  StyleSheet,
 } from 'react-native';
 import {usePokemon} from './usePokeList';
 

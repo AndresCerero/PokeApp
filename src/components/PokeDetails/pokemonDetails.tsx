@@ -1,7 +1,6 @@
 import {
   View,
   Text,
-  ActivityIndicator,
   Image,
   StyleSheet,
   SafeAreaView,
@@ -9,6 +8,7 @@ import {
 import React from 'react';
 import usePokemonDetails from './usePokemonDetails';
 import PokemonStats from './PokemonStats/pokemonStats';
+import Loading from '../Loding/Loading';
 
 const PokemonDetails = props => {
   const {pokemonData, loading, error} = usePokemonDetails(props);
@@ -16,10 +16,7 @@ const PokemonDetails = props => {
   return (
     <SafeAreaView style={styles.containerPokeDetails}>
       {loading ? (
-        <View>
-          <Text>Loading...</Text>
-          <ActivityIndicator size="large" color="#0000ff" />
-        </View>
+        <Loading />
       ) : error ? (
         <View>
           <Text>{error}</Text>
@@ -62,7 +59,7 @@ const PokemonDetails = props => {
 
 const styles = StyleSheet.create({
   containerPokeDetails: {
-    backgroundColor: '#FFF',
+    backgroundColor: '#F8F9FA',
     height: '100%',
   },
   HeaderBackground: {
@@ -77,12 +74,11 @@ const styles = StyleSheet.create({
     height: 300,
   },
   HeaderPokemon: {
-    paddingTop: 20,
+    paddingTop: 40,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 20,
     overflow: 'hidden',
-    paddingBottom: 20,
   },
   NamePokemon: {
     fontSize: 42,
@@ -103,8 +99,8 @@ const styles = StyleSheet.create({
     color: 'rgba(255, 255, 255, 0.4)',
     position: 'absolute',
     zIndex: 0,
-    right: 30,
-    bottom: 20,
+    right: 20,
+    bottom: 60,
   },
   ImgPokemon: {
     width: 200,
